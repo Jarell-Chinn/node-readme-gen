@@ -1,6 +1,11 @@
 // TODO: Include packages needed for this application
 const inquirer = require("inquirer");
-const { generateMarkdown } = require("./utils/generateMarkdown");
+const {
+  generateMarkdown,
+  renderLicenseBadge,
+  renderLicenseLink,
+  renderLicenseSection,
+} = require("./utils/generateMarkdown");
 // const { default: Choices } = require("inquirer/lib/objects/choices");
 
 const questions = [
@@ -10,7 +15,9 @@ const questions = [
   "How do you use it?",
   "Any other contributors?",
   "Any test instructions?",
-  "licenses?",
+  "Licenses?",
+  "What is your Github user name?",
+  "Badges?",
 ];
 const licenseOptions = [
   "MIT",
@@ -52,22 +59,24 @@ inquirer
       message: questions[5],
     },
     {
-      type: "checkbox",
+      type: "list",
       choices: licenseOptions,
-      name: "licenses",
+      name: "licenseSelection",
       message: questions[6],
+    },
+    {
+      type: "input",
+      name: "username",
+      message: questions[7],
     },
   ])
   .then((data) => {
-    let title = data.title;
-    let description = data.description;
-    let install = data.install;
-    let usage = data.usage;
-    let contributors = data.contributors;
-    let testInstructions = data.testInstructions;
-    let fileName = "goofy";
-    console.log(fileName);
-    generateMarkdown(fileName);
+    let license = data.licenseSelection;
+    console.log(license);
+    renderLicenseBadge(license);
+    renderLicenseLink(license);
+    renderLicenseSection(license);
+    generateMarkdown(data);
 
     // function writeToFile(fileName, data) {}
     // console.log(data);
