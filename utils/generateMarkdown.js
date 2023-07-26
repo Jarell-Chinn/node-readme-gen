@@ -1,5 +1,4 @@
 const fs = require("fs");
-const { title } = require("process");
 const badge = {
   badgeimg: "",
   badgelink: "",
@@ -58,10 +57,6 @@ function renderLicenseLink(license) {
   }
 }
 
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
-function renderLicenseSection(license) {}
-
 // TODO: Create a function to generate markdown for README
 
 function generateMarkdown(data) {
@@ -80,31 +75,57 @@ function generateMarkdown(data) {
 
    ${data.usage}
 
-  ## License
- ${badge.badgeimg}${badge.badgelink}
+   ## Table of contents
 
+   -[Description](#description)
+   
+   -[Installation](#installation)
+   
+   -[License](#license)
+   
+   -[Contributing](#contributing)
+   
+   -[Tests](#tests)
+   
+   -[Author](#author)
+   
+   -[Questions](#questions)
+   
+   -[Usage](#usage)
+   
+
+  ## License
+
+  ${badge.badgeimg}${badge.badgelink}
 
   ## Contributing
- 
+
+  ${data.contributors}
+
   ## Tests
-  
+
+  ${data.testInstructions}
 
   ## Author info
+
   - Github ${githubUrl} 
+
   ## Questions
-  put email here
+  If you have any questions about this project you can reach me at
+
+  ${githubUrl}
+  
+  ${data.email}
   
   `;
 
   fs.writeFile("GenREADME.md", markDownLayout, (err) =>
     err ? console.error(err) : console.log("Success!")
   );
-  // return `# ${data.title}`;c
 }
 
 module.exports = {
   generateMarkdown,
   renderLicenseBadge,
   renderLicenseLink,
-  renderLicenseSection,
 };
