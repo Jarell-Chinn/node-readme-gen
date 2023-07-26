@@ -106,7 +106,7 @@ function generateMarkdown(data) {
 
   ${data.testInstructions}
 
-  ## Author info
+  ## Author
 
   - Github ${githubUrl} 
 
